@@ -1,5 +1,7 @@
+import java.util.concurrent.*;
+
 public class Task1 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         Thread thread1 = new Thread(() ->
         {
@@ -27,7 +29,13 @@ public class Task1 {
             }
         });
 
-        thread1.start();
-        thread2.start();
+//        thread1.start();
+//        thread2.start();
+
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+        executor.scheduleAtFixedRate(() -> System.out.println("1 sec was passed"), 1, 1, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(() -> System.out.println("5 sec was passed"), 5, 5, TimeUnit.SECONDS);
+
+
     }
 }
